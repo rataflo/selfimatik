@@ -11,7 +11,7 @@
 // Uncomment if protoype of selfimatik
 //  Y MAX = 2984
 // X MAX = 3923
-//#define ISPROTO
+#define ISPROTO
 
 
 

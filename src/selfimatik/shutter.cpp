@@ -99,15 +99,14 @@ void takeShot() {
     
     // Time to flash. Full aperture.
     if(currentPos == flashPos){
-      digitalWrite(FLASH_PIN, LOW);
+      digitalWrite(FLASH_PIN, HIGH);
       startFlash = currentMillis;
-      //Serial.println("startflash");
     }
     // stop flash
-    /*if(startFlash != 0 && currentMillis - startFlash > flashDuration){
+    if(startFlash != 0 && currentMillis - startFlash > flashDuration){
       digitalWrite(FLASH_PIN, LOW);
       startFlash = 0;
-    }*/
+    }
     
     if(bEndStop){
       Serial.println(shutter.currentPosition());
@@ -115,7 +114,7 @@ void takeShot() {
       shutter.setCurrentPosition(0);
       shutter.run();
       enableShutter.write(HIGH);
-      digitalWrite(FLASH_PIN, HIGH);
+      digitalWrite(FLASH_PIN, LOW);
       bCloseShutter = true;
     } else{
       if(shutter.distanceToGo() == 0){// Case shutter get stuck.
