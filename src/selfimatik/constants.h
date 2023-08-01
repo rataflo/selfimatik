@@ -175,6 +175,8 @@
 #define WAIT_BETWEEN_SHOT 5000 // Wait between shot in ms.
 #define DRYER_TIME 10000
 
+const int expTimes[3]={6000,2000,700};
+
 // EEPROM data & work variables
 #define EEPROM_ADRESS 0
 struct storage {
@@ -213,6 +215,9 @@ struct storage {
   byte servoPos3 = SERVO_POS3;
 
   bool userMode1 = false;
+
+  int expTime = 1;
+  int bulbTime = 1;
 };
 
 

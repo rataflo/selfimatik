@@ -28,12 +28,24 @@ result eraseCounter1(eventMask e, prompt &item){
   return proceed;
 }
 
+result eraseCounter2(eventMask e, prompt &item){
+  parametres.userCount2 = 0;
+  updateParameters();
+  return proceed;
+}
+
+result saveExpTime(eventMask e, prompt &item){
+  
+  updateParameters();
+  return proceed;
+}
+
 MENU(menuData,"Data",showEvent,anyEvent,noStyle
   ,FIELD(parametres.totStrip,"Total"," ",0,0,0,0, doNothing ,noEvent, noStyle)
   ,FIELD(parametres.userCount1,"Counter 1","",0,0,0,0, doNothing ,noEvent, noStyle)
   ,OP("Erase counter 1", eraseCounter1, enterEvent)
   ,FIELD(parametres.userCount2,"Counter 2","",0,0,0,0, doNothing ,noEvent, noStyle)
-  ,OP("Erase counter 2", eraseCounter1, enterEvent)
+  ,OP("Erase counter 2", eraseCounter2, enterEvent)
   ,EXIT("<Back")
 );
 
@@ -117,12 +129,22 @@ TOGGLE(parametres.userMode1,userMode1,"Dble exp 1: ",doNothing,noEvent,noStyle
   ,VALUE("Off", false, saveParams, noEvent)
 );
 
+
+SELECT(parametres.expTime, selExpTimes, "Exp time", saveExpTime, exitEvent, noStyle
+  ,VALUE("1/4", 0, doNothing, noEvent)
+  ,VALUE("1/2", 1, doNothing, noEvent)
+  ,VALUE("1s", 2, doNothing, noEvent)
+  ,VALUE("Bulb", 3, doNothing, noEvent)
+);
+
 MENU(menuModes,"User modes",showEvent,anyEvent,noStyle
   ,SUBMENU(userMode1)
   ,EXIT("<Back")
 );
 
 MENU(menuShot,"Shot",showEvent,anyEvent,noStyle
+  ,SUBMENU(selExpTimes)
+  ,FIELD(parametres.bulbTime,"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
   ,SUBMENU(menuModes)
   ,EXIT("<Back")
 );
@@ -159,6 +181,11 @@ void initLCD() {
   menuData[0].enabled=disabledStatus;
   menuData[1].enabled=disabledStatus;
   menuData[3].enabled=disabledStatus;
+  if(parametres.expTime != 3){
+    menuShot[1].enabled = disabledStatus; 
+  }else{
+    menuShot[1].enabled = enabledStatus; 
+  }
   lcd.setCursor(0, 0);
   lcd.print("Mini 14 system");
   lcd.setCursor(0, 1);
@@ -178,5 +205,10 @@ void idleOffLCD(){
 }
 
 void checkMenu(){
+  if(parametres.expTime != 3){
+    menuShot[1].enabled = disabledStatus; 
+  }else{
+    menuShot[1].enabled = enabledStatus; 
+  }
   nav.poll();
 }

@@ -44,7 +44,10 @@ void initDev(){
 
   digitalWrite(X_PIN_ENABLE, LOW);
   digitalWrite(Y_PIN_ENABLE, LOW);
-
+  #ifdef ISPROTO 
+    moveArm(getParameters().servoPos3);
+  #endif
+  
   initY();
 
   #ifdef ISPROTO 

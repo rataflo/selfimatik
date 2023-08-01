@@ -30,9 +30,9 @@ Input<START_BTN_PIN> startBtn(true);
 
 void setup() {
   pinMode(FLASH_PIN, OUTPUT);
-  digitalWrite(FLASH_PIN, HIGH);
-  delay(100);
   digitalWrite(FLASH_PIN, LOW);
+  delay(100);
+  digitalWrite(FLASH_PIN, HIGH);
   pinMode(LEDSELFI_PIN, OUTPUT);
   analogWrite(LEDSELFI_PIN, 100);
   loadParameters();

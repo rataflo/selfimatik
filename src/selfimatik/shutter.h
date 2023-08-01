@@ -7,6 +7,8 @@
 #include "src/AccelStepper/src/MultiStepper.h"
 #include "src/LedControl/src/LedControl.h"
 #include "constants.h"
+#include "tests.h"
+#include "parameters.h"
 
 // For LED Matrix (5, 4 ,3, 2, 1, smiley)
 const byte IMAGES[][8] = {

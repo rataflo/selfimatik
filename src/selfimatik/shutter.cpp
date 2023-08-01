@@ -1,6 +1,5 @@
 #include "shutter.h"
-#include "constants.h"
-#include "tests.h"
+
 
 // Shutter
 AccelStepper shutter(1, SHUTTER_PIN_STP, SHUTTER_PIN_DIR);
@@ -81,7 +80,11 @@ void takeShot() {
   // TODO calculate duration of the shot.
   enableShutter.write(LOW);
   shutter.setMaxSpeed(SHUTTER_SPEED);
-  shutter.setAcceleration(SHUTTER_ACCEL);
+  int accel = SHUTTER_ACCEL;
+  if(parametres.expTime != 3){
+    accel = expTimes[parametres.expTime];
+  }
+  shutter.setAcceleration(accel);
   shutter.moveTo(SHUTTER_STEP_REVOL);
   bCloseShutter = false;
   unsigned long startFlash = 0;
@@ -89,6 +92,7 @@ void takeShot() {
   unsigned long currentMillis = millis();
   long flashPos = -100;
 
+  unsigned long startShutter = currentMillis;
   while(!bCloseShutter){
     currentMillis = millis();
     boolean bEndStop = false;
@@ -99,23 +103,31 @@ void takeShot() {
     
     // Time to flash. Full aperture.
     if(currentPos == flashPos){
-      digitalWrite(FLASH_PIN, HIGH);
+      digitalWrite(FLASH_PIN, LOW);
       startFlash = currentMillis;
+      // freeze aperture on bulb mode
+      if(parametres.expTime == 3){
+        long waitTime = parametres.bulbTime * 1000;
+        delay(waitTime);
+      }
     }
     // stop flash
     if(startFlash != 0 && currentMillis - startFlash > flashDuration){
-      digitalWrite(FLASH_PIN, LOW);
+      digitalWrite(FLASH_PIN, HIGH);
       startFlash = 0;
     }
+
     
     if(bEndStop){
-      Serial.println(shutter.currentPosition());
+      unsigned long stopShutter = currentMillis;
       shutter.stop();
       shutter.setCurrentPosition(0);
       shutter.run();
       enableShutter.write(HIGH);
-      digitalWrite(FLASH_PIN, LOW);
+      digitalWrite(FLASH_PIN, HIGH);
       bCloseShutter = true;
+      Serial.print("duration=");
+      Serial.println(stopShutter - startShutter);
     } else{
       if(shutter.distanceToGo() == 0){// Case shutter get stuck.
         shutter.moveTo(shutter.currentPosition() - 1);

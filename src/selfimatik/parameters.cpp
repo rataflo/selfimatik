@@ -11,7 +11,6 @@ void loadParameters(){
   EEPROM.readBlock(EEPROM_ADRESS, parametres);
   //parametres.checkCode = 0;
   // Check verif code, if not correct init eeprom.
-  //parametres.checkCode = 0;
   if(parametres.checkCode < 1){
     parametres.checkCode = 1;
     parametres.totStrip = 0;
@@ -85,6 +84,12 @@ void loadParameters(){
   if(parametres.checkCode < 6){
     parametres.checkCode = 6;
     parametres.userMode1 = false;
+  }
+
+  if(parametres.checkCode < 7){
+    parametres.checkCode = 7;
+    parametres.expTime = 1;
+    parametres.bulbTime = 1;
   }
 
   EEPROM.writeBlock(EEPROM_ADRESS, parametres);
