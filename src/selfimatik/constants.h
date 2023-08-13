@@ -11,7 +11,7 @@
 // Uncomment if protoype of selfimatik
 //  Y MAX = 2984
 // X MAX = 3923
-//#define ISPROTO
+#define ISPROTO
 
 
 
@@ -218,6 +218,16 @@ struct storage {
 
   int expTime = 1;
   int bulbTime = 1;
+
+  bool bflashOn = true;
+  bool bDefineEachShot = false;
+  byte nbExp = 1;
+
+  int shotExpTimes[4]={1,1,1,1};
+  int shotBulbTimes[4]={1,1,1,1};
+  bool shotFlashOn[4]={true,true,true,true};
+  int shotNbExps[4]={1,1,1,1};
+  
 };
 
 

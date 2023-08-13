@@ -17,8 +17,8 @@ result saveParams(eventMask e, prompt &item){
 }
 
 result showEvent(eventMask e,navNode& nav,prompt& item) {
-  Serial.print("event: ");
-  Serial.println(e);
+  /*Serial.print("event: ");
+  Serial.println(e);*/
   return proceed;
 }
 
@@ -30,12 +30,6 @@ result eraseCounter1(eventMask e, prompt &item){
 
 result eraseCounter2(eventMask e, prompt &item){
   parametres.userCount2 = 0;
-  updateParameters();
-  return proceed;
-}
-
-result saveExpTime(eventMask e, prompt &item){
-  
   updateParameters();
   return proceed;
 }
@@ -130,7 +124,7 @@ TOGGLE(parametres.userMode1,userMode1,"Dble exp 1: ",doNothing,noEvent,noStyle
 );
 
 
-SELECT(parametres.expTime, selExpTimes, "Exp time", saveExpTime, exitEvent, noStyle
+SELECT(parametres.expTime, selExpTimes, "Exp time", saveParams, exitEvent, noStyle
   ,VALUE("1/4", 0, doNothing, noEvent)
   ,VALUE("1/2", 1, doNothing, noEvent)
   ,VALUE("1s", 2, doNothing, noEvent)
@@ -142,9 +136,113 @@ MENU(menuModes,"User modes",showEvent,anyEvent,noStyle
   ,EXIT("<Back")
 );
 
+TOGGLE(parametres.bflashOn,flashOnOff,"Flashs: ",doNothing,noEvent,noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+TOGGLE(parametres.bDefineEachShot, defineOnOff, "Activate: ", doNothing, noEvent, noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+
+SELECT(parametres.shotExpTimes[0], selExpTimes1, "Exp time", saveParams, exitEvent, noStyle
+  ,VALUE("1/4", 0, doNothing, noEvent)
+  ,VALUE("1/2", 1, doNothing, noEvent)
+  ,VALUE("1s", 2, doNothing, noEvent)
+  ,VALUE("Bulb", 3, doNothing, noEvent)
+);
+
+TOGGLE(parametres.shotFlashOn[0],flashOnOff1,"Flashs: ",doNothing,noEvent,noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+MENU(defineShot1,"Shot 1",showEvent,anyEvent,noStyle
+  ,SUBMENU(selExpTimes1)
+  ,FIELD(parametres.shotBulbTimes[0],"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.shotNbExps[0],"Nb exp","",1,10,1,0,saveParams ,exitEvent, noStyle)
+  ,SUBMENU(flashOnOff1)
+  ,EXIT("<Back")
+);
+
+SELECT(parametres.shotExpTimes[1], selExpTimes2, "Exp time", saveParams, exitEvent, noStyle
+  ,VALUE("1/4", 0, doNothing, noEvent)
+  ,VALUE("1/2", 1, doNothing, noEvent)
+  ,VALUE("1s", 2, doNothing, noEvent)
+  ,VALUE("Bulb", 3, doNothing, noEvent)
+);
+
+TOGGLE(parametres.shotFlashOn[1],flashOnOff2,"Flashs: ",doNothing,noEvent,noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+MENU(defineShot2,"Shot 2",showEvent,anyEvent,noStyle
+  ,SUBMENU(selExpTimes2)
+  ,FIELD(parametres.shotBulbTimes[1],"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.shotNbExps[1],"Nb exp","",1,10,1,0,saveParams ,exitEvent, noStyle)
+  ,SUBMENU(flashOnOff2)
+  ,EXIT("<Back")
+);
+
+SELECT(parametres.shotExpTimes[2], selExpTimes3, "Exp time", saveParams, exitEvent, noStyle
+  ,VALUE("1/4", 0, doNothing, noEvent)
+  ,VALUE("1/2", 1, doNothing, noEvent)
+  ,VALUE("1s", 2, doNothing, noEvent)
+  ,VALUE("Bulb", 3, doNothing, noEvent)
+);
+
+TOGGLE(parametres.shotFlashOn[2],flashOnOff3,"Flashs: ",doNothing,noEvent,noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+MENU(defineShot3,"Shot 3",showEvent,anyEvent,noStyle
+  ,SUBMENU(selExpTimes3)
+  ,FIELD(parametres.shotBulbTimes[2],"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.shotNbExps[2],"Nb exp","",1,10,1,0,saveParams ,exitEvent, noStyle)
+  ,SUBMENU(flashOnOff3)
+  ,EXIT("<Back")
+);
+
+SELECT(parametres.shotExpTimes[3], selExpTimes4, "Exp time", saveParams, exitEvent, noStyle
+  ,VALUE("1/4", 0, doNothing, noEvent)
+  ,VALUE("1/2", 1, doNothing, noEvent)
+  ,VALUE("1s", 2, doNothing, noEvent)
+  ,VALUE("Bulb", 3, doNothing, noEvent)
+);
+
+TOGGLE(parametres.shotFlashOn[3],flashOnOff4,"Flashs: ",doNothing,noEvent,noStyle
+  ,VALUE("On", true, saveParams, noEvent)
+  ,VALUE("Off", false, saveParams, noEvent)
+);
+
+MENU(defineShot4,"Shot 4",showEvent,anyEvent,noStyle
+  ,SUBMENU(selExpTimes4)
+  ,FIELD(parametres.shotBulbTimes[3],"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.shotNbExps[3],"Nb exp","",1,10,1,0,saveParams ,exitEvent, noStyle)
+  ,SUBMENU(flashOnOff4)
+  ,EXIT("<Back")
+);
+
+MENU(menuDefineEachShot,"Define each shot",showEvent,anyEvent,noStyle
+  ,SUBMENU(defineOnOff)
+  ,SUBMENU(defineShot1)
+  ,SUBMENU(defineShot2)
+  ,SUBMENU(defineShot3)
+  ,SUBMENU(defineShot4)
+  ,EXIT("<Back")
+);
+
+
 MENU(menuShot,"Shot",showEvent,anyEvent,noStyle
   ,SUBMENU(selExpTimes)
   ,FIELD(parametres.bulbTime,"Bulb time","s",0,600,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.nbExp,"Nb exp","",1,10,1,0,saveParams ,exitEvent, noStyle)
+  ,SUBMENU(flashOnOff)
+  ,SUBMENU(menuDefineEachShot)
   ,SUBMENU(menuModes)
   ,EXIT("<Back")
 );
@@ -156,7 +254,7 @@ MENU(mainMenu,"Main menu",doNothing,noEvent,wrapStyle
   ,SUBMENU(menuSetup)
 );
 
-#define MAX_DEPTH 4
+#define MAX_DEPTH 5
 
 MENU_OUTPUTS(out, MAX_DEPTH
   ,LIQUIDCRYSTAL_OUT(lcd,{0,0,20,4})
@@ -177,15 +275,22 @@ void initLCD() {
   //encoder.begin();
   lcd.begin(20,4);
   //nav.idleTask=idle;
-  nav.showTitle = false;
+  //nav.showTitle = false;
   menuData[0].enabled=disabledStatus;
   menuData[1].enabled=disabledStatus;
   menuData[3].enabled=disabledStatus;
-  if(parametres.expTime != 3){
-    menuShot[1].enabled = disabledStatus; 
-  }else{
-    menuShot[1].enabled = enabledStatus; 
-  }
+  menuShot[1].enabled = parametres.expTime != 3 ? disabledStatus : enabledStatus; 
+
+  menuDefineEachShot[1].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[2].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[3].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[4].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+
+  defineShot1[1].enabled = parametres.shotExpTimes[0] != 3 ? disabledStatus : enabledStatus; 
+  defineShot2[1].enabled = parametres.shotExpTimes[1] != 3 ? disabledStatus : enabledStatus; 
+  defineShot3[1].enabled = parametres.shotExpTimes[2] != 3 ? disabledStatus : enabledStatus; 
+  defineShot4[1].enabled = parametres.shotExpTimes[3] != 3 ? disabledStatus : enabledStatus; 
+
   lcd.setCursor(0, 0);
   lcd.print("Mini 14 system");
   lcd.setCursor(0, 1);
@@ -205,10 +310,17 @@ void idleOffLCD(){
 }
 
 void checkMenu(){
-  if(parametres.expTime != 3){
-    menuShot[1].enabled = disabledStatus; 
-  }else{
-    menuShot[1].enabled = enabledStatus; 
-  }
+  menuShot[1].enabled = parametres.expTime != 3 ? disabledStatus : enabledStatus; 
+
+  menuDefineEachShot[1].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[2].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[3].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+  menuDefineEachShot[4].enabled = parametres.bDefineEachShot ? enabledStatus : disabledStatus; 
+
+  defineShot1[1].enabled = parametres.shotExpTimes[0] != 3 ? disabledStatus : enabledStatus; 
+  defineShot2[1].enabled = parametres.shotExpTimes[1] != 3 ? disabledStatus : enabledStatus; 
+  defineShot3[1].enabled = parametres.shotExpTimes[2] != 3 ? disabledStatus : enabledStatus; 
+  defineShot4[1].enabled = parametres.shotExpTimes[3] != 3 ? disabledStatus : enabledStatus; 
+
   nav.poll();
 }

@@ -26,15 +26,23 @@
 
 // Work variables
 byte stepTakeShot = 0;
+byte nbTotExp = 0;
+byte numExp = 0;
+byte numFrame = 0;
 Input<START_BTN_PIN> startBtn(true);
 
 void setup() {
   pinMode(FLASH_PIN, OUTPUT);
   digitalWrite(FLASH_PIN, LOW);
-  delay(100);
+  /*delay(5000);
   digitalWrite(FLASH_PIN, HIGH);
+  delay(100);
+  digitalWrite(FLASH_PIN, LOW);*/
+  
+  
   pinMode(LEDSELFI_PIN, OUTPUT);
   analogWrite(LEDSELFI_PIN, 100);
+  
   loadParameters();
   initPhotomaton();
 }
@@ -61,21 +69,21 @@ void loop() {
     checkMenu();
   }
 
-  if(stepTakeShot > 0) {// CRADO
-    if(parametres.userMode1 == true){
+  if(stepTakeShot > 0) {
+    if(parametres.userMode1 == true){ // Simple code made in a hurry for "Faites de l'image". TODO: refactor.
       showCountdown();
       while(getCountDown() > 0){
         refreshCountdown();
       }
-      takeShot();
+      takeShot(0);
       movePaperNextShot();
-      takeShot();
+      takeShot(1);
       movePaperNextShot();
-      takeShot();
+      takeShot(2);
       movePaperNextShot();
-      takeShot();
+      takeShot(3);
       movePaperNextShot();
-      takeShot();
+      takeShot(0);
       movePaperPreviousShot();
       showCross();
       gotoCamera();
@@ -111,20 +119,35 @@ void manageStepsTakeShot(){
     case 4:
     case 6:
     case 8:
-      takeShot();
+      // Multiple exposure
+      if(numExp == 0){
+        nbTotExp = (parametres.bDefineEachShot ? parametres.shotNbExps[numFrame] : parametres.nbExp) - 1;
+      }
+
+      takeShot(numFrame);
+      
+      // Multiple exposure
+      if(numExp < nbTotExp){
+        stepTakeShot--;
+        showCountdown();
+        while(getCountDown() > 0){
+          refreshCountdown();
+        }
+      }
+      numExp++;
       break;
       
     case 3: // move paper for next shot + countdown
-      movePaperNextShot();
-      break;
     case 5:
-      movePaperNextShot();
-      break;
     case 7:
       movePaperNextShot();
+      numExp = 0;
+      numFrame++;
       break;
       
     case 9:// last paper move, need to wait for spider to be at the correct position and scissor opened.  
+      numFrame = 0;
+      numExp = 0;
       showCross();
       gotoCamera();
       analogWrite(LEDSELFI_PIN, 0);

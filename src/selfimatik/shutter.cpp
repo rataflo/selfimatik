@@ -74,46 +74,50 @@ void testShutter() {
   debug("takeShot", String("end"));
 }
 
-void takeShot() {
+void takeShot(byte numFrame) {
   debug("takeShot", String("begin"));
   #ifndef SIMUL_MODE
-  // TODO calculate duration of the shot.
+
   enableShutter.write(LOW);
   shutter.setMaxSpeed(SHUTTER_SPEED);
+  
   int accel = SHUTTER_ACCEL;
-  if(parametres.expTime != 3){
-    accel = expTimes[parametres.expTime];
-  }
+  accel = parametres.bDefineEachShot ? (parametres.shotExpTimes[numFrame] != 3 ? expTimes[parametres.shotExpTimes[numFrame]] : SHUTTER_ACCEL) : (parametres.expTime != 3 ? expTimes[parametres.expTime] : SHUTTER_ACCEL);
   shutter.setAcceleration(accel);
   shutter.moveTo(SHUTTER_STEP_REVOL);
   bCloseShutter = false;
   unsigned long startFlash = 0;
   unsigned long flashDuration = 150;
   unsigned long currentMillis = millis();
-  long flashPos = -100;
+  long flashPos = SHUTTER_STEP_REVOL / 2;
 
   unsigned long startShutter = currentMillis;
   while(!bCloseShutter){
     currentMillis = millis();
     boolean bEndStop = false;
     long currentPos = shutter.currentPosition();
-    if( currentPos < (long)-50){ // Digital read at the last time.
+    if( currentPos < (long)-50){ // Read switch at the last time (switch is on for the first steps).
       bEndStop = !endstopShutter.read();
     }
     
     // Time to flash. Full aperture.
     if(currentPos == flashPos){
-      digitalWrite(FLASH_PIN, LOW);
-      startFlash = currentMillis;
+      bool bFireFlash = parametres.bDefineEachShot ? parametres.shotFlashOn[numFrame]  : parametres.bflashOn;
+  
+      if(bFireFlash) {
+        digitalWrite(FLASH_PIN, HIGH);
+        startFlash = currentMillis;
+      }
       // freeze aperture on bulb mode
-      if(parametres.expTime == 3){
-        long waitTime = parametres.bulbTime * 1000;
+      bool bBulb = parametres.bDefineEachShot ? parametres.shotExpTimes[numFrame] == 3 : parametres.expTime == 3;
+      if(bBulb){
+        long waitTime = (parametres.bDefineEachShot ? parametres.shotBulbTimes[numFrame] : parametres.bulbTime)*1000;
         delay(waitTime);
       }
     }
     // stop flash
     if(startFlash != 0 && currentMillis - startFlash > flashDuration){
-      digitalWrite(FLASH_PIN, HIGH);
+      digitalWrite(FLASH_PIN, LOW);
       startFlash = 0;
     }
 
@@ -124,12 +128,12 @@ void takeShot() {
       shutter.setCurrentPosition(0);
       shutter.run();
       enableShutter.write(HIGH);
-      digitalWrite(FLASH_PIN, HIGH);
+      digitalWrite(FLASH_PIN, LOW);
       bCloseShutter = true;
-      Serial.print("duration=");
-      Serial.println(stopShutter - startShutter);
+
     } else{
-      if(shutter.distanceToGo() == 0){// Case shutter get stuck.
+      // Case shutter get stuck.
+      if(shutter.distanceToGo() == 0){
         shutter.moveTo(shutter.currentPosition() - 1);
       }
       shutter.run();

@@ -92,6 +92,34 @@ void loadParameters(){
     parametres.bulbTime = 1;
   }
 
+  if(parametres.checkCode < 8){
+    parametres.checkCode = 8;
+    parametres.bflashOn = true;
+    parametres.nbExp = 1;
+    parametres.bDefineEachShot = false;
+
+    parametres.shotExpTimes[0] = 1;
+    parametres.shotBulbTimes[0] = 1;
+    parametres.shotFlashOn[0] = true;
+    parametres.shotNbExps[0] = 1;
+
+    parametres.shotExpTimes[1] = 1;
+    parametres.shotBulbTimes[1] = 1;
+    parametres.shotFlashOn[1] = true;
+    parametres.shotNbExps[1] = 1;
+
+    parametres.shotExpTimes[2] = 1;
+    parametres.shotBulbTimes[2] = 1;
+    parametres.shotFlashOn[2] = true;
+    parametres.shotNbExps[2] = 1;
+
+    parametres.shotExpTimes[3] = 1;
+    parametres.shotBulbTimes[3] = 1;
+    parametres.shotFlashOn[3] = true;
+    parametres.shotNbExps[3] = 1;
+  
+  }
+
   EEPROM.writeBlock(EEPROM_ADRESS, parametres);
 }
 void updateParameters(){
