@@ -302,6 +302,11 @@ void initLCD() {
   clickEncoder.setAccelerationEnabled(true);
 }
 
+void printStartup(String msg){
+  lcd.setCursor(0, 3);
+  lcd.print(msg);
+}
+
 void idleOnLCD(){
   nav.idleOn();
 }

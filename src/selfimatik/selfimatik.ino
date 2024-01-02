@@ -42,6 +42,8 @@ void setup() {
   
   pinMode(LEDSELFI_PIN, OUTPUT);
   analogWrite(LEDSELFI_PIN, 100);
+  //pinMode(LEDSELFIBIS_PIN, OUTPUT);
+  //digitalWrite(LEDSELFIBIS_PIN, HIGH);
   
   loadParameters();
   initPhotomaton();
@@ -88,6 +90,7 @@ void loop() {
       showCross();
       gotoCamera();
       analogWrite(LEDSELFI_PIN, 0);
+      //digitalWrite(LEDSELFIBIS_PIN, 0);
       movePaperOut();
       cutPaper();
       closeScissor();
@@ -151,6 +154,7 @@ void manageStepsTakeShot(){
       showCross();
       gotoCamera();
       analogWrite(LEDSELFI_PIN, 0);
+      //digitalWrite(LEDSELFIBIS_PIN, LOW);
       movePaperOut();
       break;
       
@@ -185,13 +189,16 @@ void initPhotomaton(){
   initLCD();
   initLedMatrix();
   initDev();
+  printStartup("init Shutter");
   initShutter();
+  printStartup("init Scissor");
   initScissor();
+  printStartup("init Paper");
   initPaper();
   showArrowDown();
   #ifdef ISPROTO 
     displayNumber(0);
   #endif
-  
+  printStartup("init OK");
   debug("initPhotomaton-", String("end"));
 }

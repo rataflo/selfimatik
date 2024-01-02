@@ -65,6 +65,7 @@
 
 #define LED_PIN 7
 #define LEDSELFI_PIN 9
+//#define LEDSELFIBIS_PIN 10
 
 #define LCD_PINS_RS        16
 #define LCD_PINS_ENABLE    17
@@ -125,6 +126,7 @@
 #endif
 
 #ifndef ISPROTO
+  
   #define DRYER_PIN 12
 
   #define SERVO_POS1 12

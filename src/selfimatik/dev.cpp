@@ -47,15 +47,15 @@ void initDev(){
   #ifdef ISPROTO 
     moveArm(getParameters().servoPos3);
   #endif
-  
+  printStartup("init Y");
   initY();
-
+  printStartup("init Arm");
   #ifdef ISPROTO 
     moveArm(getParameters().servoPos3);
   #else
     moveArm(getParameters().servoPos1);
   #endif
-
+  printStartup("init X");
   
   initX();
   digitalWrite(X_PIN_ENABLE, HIGH);
@@ -110,6 +110,7 @@ void devProcess(){
     bathTime(i);
   }
   analogWrite(LEDSELFI_PIN, 100);
+  //digitalWrite(LEDSELFIBIS_PIN, HIGH);
   moveArm(getParameters().servoPos2);
 
   for(byte i = 4; i < 8;i++){
@@ -209,5 +210,5 @@ void moveArm(byte pos){
   servoArm.write(pos);  
   delay(1000);
   servoArm.detach();
-  //digitalWrite(SERVO_POWER_PIN, LOW);
+  digitalWrite(SERVO_POWER_PIN, LOW);
 }

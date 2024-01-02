@@ -6,6 +6,7 @@
 #include <Servo.h>
 #include "constants.h"
 #include "parameters.h"
+#include "lcd.h"
 #include "tests.h"
 
 void initDev();

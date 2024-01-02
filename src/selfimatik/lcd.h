@@ -17,4 +17,5 @@ void initLCD();
 void checkMenu();
 void idleOnLCD();
 void idleOffLCD();
+void printStartup(String msg);
 #endif
