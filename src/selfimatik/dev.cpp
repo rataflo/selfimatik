@@ -208,7 +208,7 @@ void moveArm(byte pos){
   digitalWrite(SERVO_POWER_PIN, HIGH);
   servoArm.attach(SERVO_PIN);  // attaches the servo on pin 9 to the servo object
   servoArm.write(pos);  
-  delay(1000);
+  delay(1200);
   servoArm.detach();
   digitalWrite(SERVO_POWER_PIN, LOW);
 }
