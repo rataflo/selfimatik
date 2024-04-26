@@ -110,6 +110,12 @@ void loop() {
 
 void manageStepsTakeShot(){
   debug("manageStepsTakeShot-begin:", stepTakeShot);
+  #ifdef SIMUL_MODE
+    if(stepTakeShot < 13){
+      gotoCamera();
+      stepTakeShot = 13;
+    }
+  #endif
   switch (stepTakeShot) {
     case 1: // First countdown
       showCountdown();
@@ -165,9 +171,12 @@ void manageStepsTakeShot(){
       
     case 12: // move paper back for first shot.
       movePaperFirstShot();
+      break;
+    case 13: // move paper back for first shot.
       devProcess();
       break;
-    case 13: // check for free slot.
+
+    case 14: // check for free slot.
       idleOffLCD();
       break;
   }
@@ -175,7 +184,7 @@ void manageStepsTakeShot(){
   bool bNextStep = true;
 
   if(bNextStep){
-    stepTakeShot = stepTakeShot >= 13 ? 0 : stepTakeShot + 1;
+    stepTakeShot = stepTakeShot >= 14 ? 0 : stepTakeShot + 1;
   }
 }
 
@@ -189,12 +198,14 @@ void initPhotomaton(){
   initLCD();
   initLedMatrix();
   initDev();
-  printStartup("init Shutter");
-  initShutter();
-  printStartup("init Scissor");
-  initScissor();
-  printStartup("init Paper");
-  initPaper();
+  #ifndef SIMUL_MODE
+    printStartup("init Shutter");
+    initShutter();
+    printStartup("init Scissor");
+    initScissor();
+    printStartup("init Paper");
+    initPaper();
+  #endif
   showArrowDown();
   #ifdef ISPROTO 
     displayNumber(0);

@@ -11,9 +11,9 @@
 //#define LED_MATRIX_CS_PIN 51 //11 // CS
 //#define LED_MATRIX_SCL_PIN 50 //10 // SCL = CLOCK
 
-#define LED_MATRIX_SDI_PIN 50 //12 // SDI = DIN
-#define LED_MATRIX_CS_PIN 51 //11 // CS
-#define LED_MATRIX_SCL_PIN 52 //10 // SCL = CLOCK
+#define LED_MATRIX_SDI_PIN 12 //12 // SDI = DIN
+#define LED_MATRIX_CS_PIN 11 //11 // CS
+#define LED_MATRIX_SCL_PIN 10 //10 // SCL = CLOCK
 
 LedControl lc=LedControl(LED_MATRIX_SDI_PIN, LED_MATRIX_SCL_PIN, LED_MATRIX_CS_PIN, 1); 
 

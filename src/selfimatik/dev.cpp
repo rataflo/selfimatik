@@ -102,7 +102,7 @@ void initY(){
 }
 
 void devProcess(){
-
+  Serial.println("devProcess");
   gotoPosY(getParameters().middlePos);
 
   for(byte i = 0; i < 4;i++){
