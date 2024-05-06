@@ -1,8 +1,7 @@
 #include <Servo.h>
 #define SERVO_PIN 11
-#define SERVO_ARM_CLOSE 9
 Servo servo;
-Servo servoClose;
+
 int pos = 0;
 void setup() {
   // put your setup code here, to run once:
