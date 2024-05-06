@@ -120,6 +120,10 @@ void loadParameters(){
   
   }
 
+  parametres.servoPos1 = SERVO_POS1;
+  parametres.servoPos2 = SERVO_POS2;
+  parametres.servoPos3 = SERVO_POS3;
+
   EEPROM.writeBlock(EEPROM_ADRESS, parametres);
 }
 void updateParameters(){
