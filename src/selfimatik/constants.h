@@ -6,7 +6,7 @@
 // uncomment to activate debug with serial output.
 #define DEBUG_MODE
 // uncomment to activate simulation mode (no paper advance, cut paper & shot).
-//#define SIMUL_MODE
+#define SIMUL_MODE
 
 // Uncomment if protoype of selfimatik
 //  Y MAX = 2984
