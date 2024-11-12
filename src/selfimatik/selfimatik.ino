@@ -90,7 +90,7 @@ void loop() {
       showCross();
       gotoCamera();
       analogWrite(LEDSELFI_PIN, 0);
-      //digitalWrite(LEDSELFIBIS_PIN, 0);
+      analogWrite(LED_PIN, 0);
       movePaperOut();
       cutPaper();
       closeScissor();
@@ -160,7 +160,7 @@ void manageStepsTakeShot(){
       showCross();
       gotoCamera();
       analogWrite(LEDSELFI_PIN, 0);
-      //digitalWrite(LEDSELFIBIS_PIN, LOW);
+      analogWrite(LED_PIN, 0);
       movePaperOut();
       break;
       

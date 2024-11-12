@@ -13,12 +13,12 @@ void initDev(){
   #ifndef ISPROTO
     digitalWrite(EXIT_PIN, LOW);
   #else
-    analogWrite(EXIT_PIN, 500);
+    analogWrite(EXIT_PIN, 400);
   #endif
   pinMode(SERVO_POWER_PIN, OUTPUT);
   digitalWrite(SERVO_POWER_PIN, LOW);
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH);
+  analogWrite(LED_PIN, 130);//12v
 
   pinMode(X_ENDSTOP_PIN, INPUT);
   pinMode(X_PIN_ENABLE, OUTPUT);
@@ -109,8 +109,8 @@ void devProcess(){
     gotoPosX(getParameters().tankPos[i]);
     bathTime(i);
   }
-  analogWrite(LEDSELFI_PIN, 100);
-  //digitalWrite(LEDSELFIBIS_PIN, HIGH);
+  analogWrite(LEDSELFI_PIN, 100);//open gnd
+  analogWrite(LED_PIN, 130);//12v
   moveArm(getParameters().servoPos2);
 
   for(byte i = 4; i < 8;i++){

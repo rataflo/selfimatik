@@ -6,12 +6,12 @@
 // uncomment to activate debug with serial output.
 #define DEBUG_MODE
 // uncomment to activate simulation mode (no paper advance, cut paper & shot).
-#define SIMUL_MODE
+//#define SIMUL_MODE
 
 // Uncomment if protoype of selfimatik
-//  Y MAX = 2984
+// Y MAX = 2984
 // X MAX = 3923
-//#define ISPROTO
+#define ISPROTO
 
 
 
@@ -114,8 +114,8 @@
   #define SHUTTER_ACCEL 1450 // 1450 => 1s, 5500 => 1/2s, 22000 => 1/4s, 30000 => max, 191ms less than 1/8s
   #define SHUTTER_STEP_REVOL -200 // Number of step for a full rotation of the shutter
 
-  #define SCISSOR_SPEED 1000
-  #define SCISSOR_ACCEL 2000
+  #define SCISSOR_SPEED 3000
+  #define SCISSOR_ACCEL 8000
   #define SCISSOR_STEP_OPENED 300 // Number of step to fully open the scissor.
 
   #define NB_STEP_PAPER_ONE_SHOT -606 // Number of step to move to another shot.
