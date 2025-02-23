@@ -120,6 +120,11 @@ void loadParameters(){
   
   }
 
+  if(parametres.checkCode < 9){
+    parametres.startLight = 3;
+    parametres.stopLight = 0;
+  }
+
   EEPROM.writeBlock(EEPROM_ADRESS, parametres);
 }
 void updateParameters(){

@@ -113,6 +113,8 @@ void manageStepsTakeShot(){
   #ifdef SIMUL_MODE
     if(stepTakeShot < 13){
       gotoCamera();
+      analogWrite(LEDSELFI_PIN, 0);
+      analogWrite(LED_PIN, 0);
       stepTakeShot = 13;
     }
   #endif

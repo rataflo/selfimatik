@@ -14,7 +14,7 @@ void initX();
 void initY();
 void devProcess();
 void gotoCamera();
-void bathTime(byte nbBath);
+void bathTime(byte nbBath, bool startLight, bool stopLight);
 void gotoPosX(long pos);
 void gotoPosY(long pos);
 void manageDryer();

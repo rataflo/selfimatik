@@ -103,19 +103,36 @@ void initY(){
 
 void devProcess(){
   Serial.println("devProcess");
+  byte startLight = getParameters().startLight;
+  byte stopLight = getParameters().stopLight;
   gotoPosY(getParameters().middlePos);
 
   for(byte i = 0; i < 4;i++){
+    bool startLight = false;
+    bool stopLight = false;
+    if(startLight != 0 && startLight - 1 == i){
+      startLight = true;
+    }
+    if(stopLight != 0 && stopLight - 1 == i){
+      stopLight = true;
+    }
     gotoPosX(getParameters().tankPos[i]);
-    bathTime(i);
+    bathTime(i, startLight, stopLight);
   }
-  analogWrite(LEDSELFI_PIN, 100);//open gnd
-  analogWrite(LED_PIN, 130);//12v
+  
   moveArm(getParameters().servoPos2);
 
   for(byte i = 4; i < 8;i++){
+    bool startLight = false;
+    bool stopLight = false;
+    if(startLight != 0 && startLight - 1 == i){
+      startLight = true;
+    }
+    if(stopLight != 0 && stopLight - 1 == i){
+      stopLight = true;
+    }
     gotoPosX(getParameters().tankPos[i]);
-    bathTime(i);
+    bathTime(i, startLight, stopLight);
   }
 
   //Exit
@@ -175,12 +192,17 @@ void gotoPosY(long pos){
   }
 }
 
-void bathTime(byte nbTank){
+void bathTime(byte nbTank, bool lightOn, bool lightOff){
   debug("bathTime",String("debut"));
   unsigned long nbSec = (unsigned long)getParameters().tankTimes[nbTank];
   unsigned long duration = (unsigned long)nbSec * (unsigned long)1000;
   unsigned long currentMillis = millis();
   unsigned long startMillis = currentMillis;
+
+  if(lightOff){
+    analogWrite(LEDSELFI_PIN, 0);
+    analogWrite(LED_PIN, 0);
+  }
 
   while (currentMillis - startMillis < duration){
     gotoPosY(getParameters().bottomPos);
@@ -188,6 +210,11 @@ void bathTime(byte nbTank){
     if(currentMillis - startMillis < duration){
       gotoPosY(getParameters().agitateTopPos);
     }
+  }
+
+  if(lightOn){
+    analogWrite(LEDSELFI_PIN, 100);//open gnd
+    analogWrite(LED_PIN, 130);//12v
   }
   gotoPosY(getParameters().middlePos);
   nbSec = (unsigned long)getParameters().dripTimes[nbTank];

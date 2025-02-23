@@ -110,11 +110,18 @@ MENU(menuServo, "Servo", doNothing ,noEvent, noStyle
   ,EXIT("<Back")
 );
 
+MENU(menuLight, "Light", doNothing ,noEvent, noStyle
+  ,FIELD(parametres.startLight,"Tank On","",0,8,1,0,saveParams ,exitEvent, noStyle)
+  ,FIELD(parametres.stopLight,"Tank Off","",0,8,1,0,saveParams ,exitEvent, noStyle)
+  ,EXIT("<Back")
+);
+
 MENU(menuSetup,"Setup",showEvent,anyEvent,noStyle
   ,SUBMENU(menuPositions)
   ,SUBMENU(menuPaper)
   ,SUBMENU(menuArm)
   ,SUBMENU(menuServo)
+  ,SUBMENU(menuLight)
   ,EXIT("<Back")
 );
 
