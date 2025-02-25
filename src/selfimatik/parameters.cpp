@@ -121,6 +121,7 @@ void loadParameters(){
   }
 
   if(parametres.checkCode < 9){
+    parametres.checkCode = 9;
     parametres.startLight = 3;
     parametres.stopLight = 0;
   }
