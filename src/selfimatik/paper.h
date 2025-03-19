@@ -17,5 +17,6 @@ void movePaperPreviousShot();
 void movePaperOut();
 
 boolean readSWPaper1();
+void disablePaper();
 
 #endif

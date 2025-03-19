@@ -12,4 +12,5 @@ void initScissor();
 void cutPaper();
 void closeScissor();
 bool readSWScissor();
+void disableScissor();
 #endif

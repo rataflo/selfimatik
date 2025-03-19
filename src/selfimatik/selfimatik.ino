@@ -203,11 +203,18 @@ void initPhotomaton(){
   #ifndef SIMUL_MODE
     printStartup("init Shutter");
     initShutter();
+    
     printStartup("init Scissor");
     initScissor();
     printStartup("init Paper");
     initPaper();
   #endif
+  #ifdef SIMUL_MODE
+    disableScissor();
+    disableShutter();
+    disablePaper();
+  #endif
+
   showArrowDown();
   #ifdef ISPROTO 
     displayNumber(0);

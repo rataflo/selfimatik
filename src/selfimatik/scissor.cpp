@@ -46,3 +46,7 @@ void closeScissor() {
 bool readSWScissor(){
   return endstopScissor.read();
 }
+
+void disableScissor(){
+  enableScissor.write(HIGH);
+}

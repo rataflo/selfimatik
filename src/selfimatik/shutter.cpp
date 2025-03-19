@@ -206,3 +206,7 @@ byte getCountDown(){
 boolean readSWShutter(){
   return endstopShutter.read();
 }
+
+void disableShutter(){
+  enableShutter.write(HIGH);
+}

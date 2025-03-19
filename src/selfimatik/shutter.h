@@ -106,4 +106,5 @@ byte getCountDown();
 boolean isFlashOn();
 boolean readSWShutter();
 void testShutter();
+void disableShutter();
 #endif

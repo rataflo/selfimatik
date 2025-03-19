@@ -118,3 +118,7 @@ void movePaperOut() {
 boolean readSWPaper1(){
   return opto1.read();
 }
+
+void disablePaper(){
+  enablePaper.write(HIGH);
+}
