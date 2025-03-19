@@ -41,7 +41,7 @@ void setup() {
   
   
   pinMode(LEDSELFI_PIN, OUTPUT);
-  analogWrite(LEDSELFI_PIN, 100);
+  //analogWrite(LEDSELFI_PIN, 100);
   //pinMode(LEDSELFIBIS_PIN, OUTPUT);
   //digitalWrite(LEDSELFIBIS_PIN, HIGH);
   

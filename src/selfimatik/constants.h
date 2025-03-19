@@ -6,12 +6,12 @@
 // uncomment to activate debug with serial output.
 #define DEBUG_MODE
 // uncomment to activate simulation mode (no paper advance, cut paper & shot).
-//#define SIMUL_MODE
+#define SIMUL_MODE
 
 // Uncomment if protoype of selfimatik
 // Y MAX = 2984
 // X MAX = 3923
-#define ISPROTO
+//#define ISPROTO
 
 
 
@@ -83,91 +83,91 @@
 
 //CONSTANTS
 #ifdef ISPROTO
-#define DRYER_PIN A11
-#define SERVO_POS1 27
-#define SERVO_POS2 160
-#define SERVO_POS3 90
+  #define DRYER_PIN A11
+  #define SERVO_POS1 27
+  #define SERVO_POS2 160
+  #define SERVO_POS3 90
 
-#define Y_MIDDLE_POS 0
-#define Y_AGITATE_POS -2700
-#define Y_BOTTOM_POS -2899
+  #define Y_MIDDLE_POS 0
+  #define Y_AGITATE_POS -2700
+  #define Y_BOTTOM_POS -2899
 
-#define CAMERA_POS -270
-#define TANK1_POS -3923
-#define TANK2_POS -2700
-#define TANK3_POS -1450
-#define TANK4_POS -100
-#define TANK5_POS -100
-#define TANK6_POS -1450
-#define TANK7_POS -2700
-#define TANK8_POS -3923
-#define EXIT_POS -3923
-#define SERVO_ROTATE_POS -2700
+  #define CAMERA_POS -270
+  #define TANK1_POS -3923
+  #define TANK2_POS -2700
+  #define TANK3_POS -1450
+  #define TANK4_POS -100
+  #define TANK5_POS -100
+  #define TANK6_POS -1450
+  #define TANK7_POS -2700
+  #define TANK8_POS -3923
+  #define EXIT_POS -3923
+  #define SERVO_ROTATE_POS -2700
 
-#define X_SPEED 1000
-#define X_ACCEL 2000
+  #define X_SPEED 1000
+  #define X_ACCEL 2000
 
-#define Y_SPEED 1000
-#define Y_ACCEL 2000
+  #define Y_SPEED 1000
+  #define Y_ACCEL 2000
 
-#define SHUTTER_SPEED 1000
-#define SHUTTER_ACCEL 1450       // 1450 => 1s, 5500 => 1/2s, 22000 => 1/4s, 30000 => max, 191ms less than 1/8s
-#define SHUTTER_STEP_REVOL -200  // Number of step for a full rotation of the shutter
+  #define SHUTTER_SPEED 1000
+  #define SHUTTER_ACCEL 1450       // 1450 => 1s, 5500 => 1/2s, 22000 => 1/4s, 30000 => max, 191ms less than 1/8s
+  #define SHUTTER_STEP_REVOL -200  // Number of step for a full rotation of the shutter
 
-#define SCISSOR_SPEED 3000
-#define SCISSOR_ACCEL 8000
-#define SCISSOR_STEP_OPENED 300  // Number of step to fully open the scissor.
+  #define SCISSOR_SPEED 3000
+  #define SCISSOR_ACCEL 8000
+  #define SCISSOR_STEP_OPENED 300  // Number of step to fully open the scissor.
 
-#define NB_STEP_PAPER_ONE_SHOT -606  // Number of step to move to another shot.
-#define NB_STEP_PAPER_OUT -2700      // Number of step to move out paper.Previous:1285
-#define PAPER_SPEED 400
-#define PAPER_ACCEL 200
-#define DELTA_FIRST_SHOT 440  //Delta in step to do after paper reach opto 1. Previous: -80
+  #define NB_STEP_PAPER_ONE_SHOT -606  // Number of step to move to another shot.
+  #define NB_STEP_PAPER_OUT -2700      // Number of step to move out paper.Previous:1285
+  #define PAPER_SPEED 400
+  #define PAPER_ACCEL 200
+  #define DELTA_FIRST_SHOT 440  //Delta in step to do after paper reach opto 1. Previous: -80
 #endif
 
 #ifndef ISPROTO
 
-#define DRYER_PIN 12
+  #define DRYER_PIN 12
 
-#define SERVO_POS1 12
-#define SERVO_POS2 147
-#define SERVO_POS3 90
+  #define SERVO_POS1 12
+  #define SERVO_POS2 147
+  #define SERVO_POS3 90
 
-#define Y_MIDDLE_POS -450
-#define Y_AGITATE_POS -2700
-#define Y_BOTTOM_POS -3350
+  #define Y_MIDDLE_POS -450
+  #define Y_AGITATE_POS -2700
+  #define Y_BOTTOM_POS -3350
 
-#define CAMERA_POS -1350
-#define TANK1_POS -1250
-#define TANK2_POS -2600
-#define TANK3_POS -4000
-#define TANK4_POS -5300
-#define TANK5_POS -5600
-#define TANK6_POS -4300
-#define TANK7_POS -3000
-#define TANK8_POS -1600
-#define EXIT_POS 0
-#define SERVO_ROTATE_POS -1600
+  #define CAMERA_POS -1350
+  #define TANK1_POS -1250
+  #define TANK2_POS -2600
+  #define TANK3_POS -4000
+  #define TANK4_POS -5300
+  #define TANK5_POS -5600
+  #define TANK6_POS -4300
+  #define TANK7_POS -3000
+  #define TANK8_POS -1600
+  #define EXIT_POS 0
+  #define SERVO_ROTATE_POS -1600
 
-#define X_SPEED 1000
-#define X_ACCEL 2000
+  #define X_SPEED 1000
+  #define X_ACCEL 2000
 
-#define Y_SPEED 1000
-#define Y_ACCEL 2000
+  #define Y_SPEED 1000
+  #define Y_ACCEL 2000
 
-#define SHUTTER_SPEED 1000
-#define SHUTTER_ACCEL 1450       // 1450 => 1s, 5500 => 1/2s, 22000 => 1/4s, 30000 => max, 191ms less than 1/8s
-#define SHUTTER_STEP_REVOL -200  // Number of step for a full rotation of the shutter
+  #define SHUTTER_SPEED 1000
+  #define SHUTTER_ACCEL 1450       // 1450 => 1s, 5500 => 1/2s, 22000 => 1/4s, 30000 => max, 191ms less than 1/8s
+  #define SHUTTER_STEP_REVOL -200  // Number of step for a full rotation of the shutter
 
-#define SCISSOR_SPEED 1000
-#define SCISSOR_ACCEL 2000
-#define SCISSOR_STEP_OPENED 260  // Number of step to fully open the scissor.
+  #define SCISSOR_SPEED 1000
+  #define SCISSOR_ACCEL 2000
+  #define SCISSOR_STEP_OPENED 260  // Number of step to fully open the scissor.
 
-#define NB_STEP_PAPER_ONE_SHOT -606  // Number of step to move to another shot.
-#define NB_STEP_PAPER_OUT -3100      // Number of step to move out paper.Previous:1285
-#define PAPER_SPEED 400
-#define PAPER_ACCEL 200
-#define DELTA_FIRST_SHOT 500  //Delta in step to do after paper reach opto 1. Previous: -80
+  #define NB_STEP_PAPER_ONE_SHOT -606  // Number of step to move to another shot.
+  #define NB_STEP_PAPER_OUT -3100      // Number of step to move out paper.Previous:1285
+  #define PAPER_SPEED 400
+  #define PAPER_ACCEL 200
+  #define DELTA_FIRST_SHOT 500  //Delta in step to do after paper reach opto 1. Previous: -80
 
 #endif
 

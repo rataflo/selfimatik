@@ -18,7 +18,7 @@ void initDev(){
   pinMode(SERVO_POWER_PIN, OUTPUT);
   digitalWrite(SERVO_POWER_PIN, LOW);
   pinMode(LED_PIN, OUTPUT);
-  analogWrite(LED_PIN, 130);//12v
+  
 
   pinMode(X_ENDSTOP_PIN, INPUT);
   pinMode(X_PIN_ENABLE, OUTPUT);
@@ -60,6 +60,11 @@ void initDev(){
   initX();
   digitalWrite(X_PIN_ENABLE, HIGH);
   digitalWrite(Y_PIN_ENABLE, HIGH);
+
+  if(getParameters().stopLight == 0){
+    analogWrite(LEDSELFI_PIN, 100);
+    analogWrite(LED_PIN, 130);//12v
+  }
 
   stepperY.setMaxSpeed(Y_SPEED);
   stepperY.setAcceleration(Y_ACCEL);
@@ -105,34 +110,46 @@ void devProcess(){
   Serial.println("devProcess");
   byte startLight = getParameters().startLight;
   byte stopLight = getParameters().stopLight;
+  Serial.print("starL=");
+  Serial.println(startLight);
+  Serial.print("stop=");
+  Serial.println(stopLight);
   gotoPosY(getParameters().middlePos);
 
   for(byte i = 0; i < 4;i++){
-    bool startLight = false;
-    bool stopLight = false;
+    bool bStartLight = false;
+    bool bStopLight = false;
     if(startLight != 0 && startLight - 1 == i){
-      startLight = true;
+      bStartLight = true;
     }
     if(stopLight != 0 && stopLight - 1 == i){
-      stopLight = true;
+      bStopLight = true;
     }
+    Serial.print("startL=");
+    Serial.println(bStartLight);
+    Serial.print("stopL=");
+    Serial.println(bStopLight);
     gotoPosX(getParameters().tankPos[i]);
-    bathTime(i, startLight, stopLight);
+    bathTime(i, bStartLight, bStopLight);
   }
   
   moveArm(getParameters().servoPos2);
 
   for(byte i = 4; i < 8;i++){
-    bool startLight = false;
-    bool stopLight = false;
+    bool bStartLight = false;
+    bool bStopLight = false;
     if(startLight != 0 && startLight - 1 == i){
-      startLight = true;
+      bStartLight = true;
     }
     if(stopLight != 0 && stopLight - 1 == i){
-      stopLight = true;
+      bStopLight = true;
     }
+    Serial.print("startL=");
+    Serial.println(bStartLight);
+    Serial.print("stopL=");
+    Serial.println(bStopLight);
     gotoPosX(getParameters().tankPos[i]);
-    bathTime(i, startLight, stopLight);
+    bathTime(i, bStartLight, bStopLight);
   }
 
   //Exit
